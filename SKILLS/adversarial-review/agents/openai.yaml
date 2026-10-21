@@ -1,0 +1,4 @@
+interface:
+  display_name: "Adversarial Review"
+  short_description: "Verify local branch changes with independent reviewers"
+  default_prompt: "Use $adversarial-review to review this branch against its intended base. Discover current models, ask me which OpenAI and Anthropic models to use, and prefer T3 child tasks when available. Report verified findings."

@@ -1,0 +1,51 @@
+{
+  "skill_name": "adversarial-review",
+  "evals": [
+    {
+      "id": 0,
+      "name": "stacked-local-review",
+      "prompt": "Use $adversarial-review to review the committed changes on the current branch in {REPO}. It stacks on stats-command. Keep this review-only and local; there is no PR. Use only local tools and the two reviewer providers, with no forge calls.",
+      "expected_output": "Question-tool prompts for the current OpenAI and Anthropic models before reviewers launch. After selection, review the pinned stats-command-to-head diff using those models, with evidence-backed finding dispositions and explicit coverage gaps. No edits, commits, pushes, or forge writes.",
+      "assertions": [
+        "Review compares against stats-command and excludes inherited changes from the parent branch",
+        "Both reviewers receive the same pinned target without each other's conclusions",
+        "The Question tool asks for both models before either reviewer launches; no answer is not treated as full-auto",
+        "Reviewers use the user's selected models with verified identifiers and required efforts, or missing coverage is reported",
+        "Findings contain reachable failure scenarios and evidence; unverified suspicions are labeled",
+        "The original working tree, refs, and remotes are unchanged",
+        "No PR creation, forge monitoring, or publication occurs"
+      ]
+    },
+    {
+      "id": 1,
+      "name": "review-and-fix-local-work",
+      "prompt": "Use $adversarial-review in full-auto mode to review and fix the current work in {REPO} against main. Include staged, unstaged, and untracked source changes. Keep the fixes local and uncommitted. There is no PR; use only local tools and the two reviewer providers.",
+      "expected_output": "Review with Astra and Fable 5.1 xhigh without model-selection questions, verified in-scope fixes with focused checks, and an independent review of the final state. No commits or external writes.",
+      "assertions": [
+        "Review scope includes relevant staged, unstaged, and untracked changes",
+        "Both initial reviewers inspect the same code state",
+        "Full-auto selects verified Astra and Fable 5.1 identifiers without prompting for models or silently substituting unavailable models",
+        "Only confirmed in-scope findings lead to fixes; unrelated work is preserved",
+        "At least one independent reviewer inspects the corrected state with the required model selection",
+        "Final report identifies the reviewed state, checks, fixed findings, and remaining coverage gaps",
+        "Fixes remain uncommitted and no publication occurs"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "t3-delegation-and-fresh-rounds",
+      "prompt": "Use $adversarial-review to review and fix {REPO} against the supplied parent branch. Use the OpenAI and Anthropic models and efforts already selected in this conversation. T3 orchestration and native subagents are both available; the native model list omits the selected custom Anthropic model. Keep changes local and uncommitted.",
+      "expected_output": "Discover both targets in the T3 catalog, launch T3 review tasks with actual model options, verify findings, fix confirmed defects, and delegate a fresh independent re-review of the final state. Track each round by taskId without creating top-level conversations.",
+      "assertions": [
+        "orchestrator_capabilities supplies verified provider instance IDs, models, supported options, and constraints",
+        "T3 delegate_task is preferred when permitted; requested and applicable inherited options are applied through target.options",
+        "Both initial tasks start before awaiting their results and see the same pinned code",
+        "Retries preserve clientRequestId and do not launch duplicate reviewers",
+        "Each independent re-review uses a fresh delegate_task call with a new clientRequestId and full context",
+        "No create_threads, t3_thread_launch, or message to an old child starts an independent review round",
+        "Uncommitted edits are not assumed to transfer into isolation worktrees",
+        "The final report includes actual reviewers, verified findings, fixes, and coverage gaps"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "skill_name": "new-pr",
+  "evals": [
+    {
+      "id": 0,
+      "name": "version-flag-pr",
+      "prompt": "hey can you add a --version flag to wordkit? repo is at {REPO}. it should print the version from package.json, and `wordkit -v` should work as an alias. then put it up as a PR off main.\n\nSandbox note: this repo's `origin` is a local bare repo standing in for GitHub, so `gh pr create` and any other gh/network commands will NOT work. When you reach the PR-creation step, instead write three files at the repo root (do NOT commit them): PR_TITLE.txt (the PR title), PR_BASE.txt (the base branch name), PR_BODY.md (the full PR description). Everything else — branching, committing, pushing to origin — do for real. Don't ask me questions; if you'd normally ask, use the info here or make the call yourself and note it in your report.\nThe local forge has no CI or review bots. Report forge monitoring as unavailable; do not launch local adversarial reviewers as a substitute.",
+      "expected_output": "Feature branch off main pushed to origin with conventional commits and no AI attribution; --version and -v work; tests pass; PR_TITLE/PR_BASE(main)/PR_BODY written with ## Summary; forge monitoring reported unavailable, with no local adversarial review required",
+      "files": [],
+      "assertions": [
+        "A new feature branch was pushed to origin",
+        "Feature branch forks from the tip of main (correct PR base)",
+        "All new commits use conventional-commit subjects",
+        "No AI attribution in commit messages",
+        "npm test passes on the pushed feature branch",
+        "`wordkit --version` and `-v` print the package version",
+        "PR_TITLE.txt, PR_BASE.txt, PR_BODY.md written at repo root and left uncommitted",
+        "Declared PR base is main",
+        "PR title is conventional-commit style",
+        "PR body has a ## Summary section",
+        "No independent local reviewers were launched solely to open the PR",
+        "Final report states that the local fixture cannot verify forge CI or bot reviews"
+      ]
+    },
+    {
+      "id": 1,
+      "name": "stacked-json-flag",
+      "prompt": "I've got a stats subcommand for wordkit up in review on the stats-command branch (repo: {REPO}). can you add a --json flag to it — `wordkit stats <file> --json` should print the stats object as JSON — and open a PR for that? since stats isn't merged yet the PR needs to stack on top of stats-command, not main.\n\nSandbox note: this repo's `origin` is a local bare repo standing in for GitHub, so `gh pr create` and any other gh/network commands will NOT work. When you reach the PR-creation step, instead write three files at the repo root (do NOT commit them): PR_TITLE.txt (the PR title), PR_BASE.txt (the base branch name), PR_BODY.md (the full PR description). Everything else — branching, committing, pushing to origin — do for real. Don't ask me questions; if you'd normally ask, use the info here or make the call yourself and note it in your report.\nThe local forge has no CI or review bots. Report forge monitoring as unavailable; do not launch local adversarial reviewers as a substitute.",
+      "expected_output": "Feature branch forked from stats-command tip and pushed; PR_BASE.txt = stats-command; --json prints valid JSON; tests pass; conventional commits; no AI attribution; ## Summary in body; forge monitoring reported unavailable, with no local adversarial review required",
+      "files": [],
+      "assertions": [
+        "A new feature branch was pushed to origin",
+        "Feature branch forks from the tip of stats-command (correct PR base)",
+        "All new commits use conventional-commit subjects",
+        "No AI attribution in commit messages",
+        "npm test passes on the pushed feature branch",
+        "`wordkit stats <file> --json` prints valid JSON with words/lines/chars",
+        "PR_TITLE.txt, PR_BASE.txt, PR_BODY.md written at repo root and left uncommitted",
+        "Declared PR base is stats-command",
+        "PR title is conventional-commit style",
+        "PR body has a ## Summary section",
+        "No independent local reviewers were launched solely to open the PR",
+        "Final report states that the local fixture cannot verify forge CI or bot reviews"
+      ]
+    }
+  ]
+}

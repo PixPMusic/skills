@@ -1,0 +1,4 @@
+interface:
+  display_name: "New PR"
+  short_description: "Prepare PRs and babysit CI and bot reviews"
+  default_prompt: "Use $new-pr to prepare and open this PR against the correct base, then babysit CI and forge bot reviews through fixes."
